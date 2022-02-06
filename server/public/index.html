@@ -1,0 +1,32 @@
+<!-- https://dev.to/codingnepal/drag-drop-or-browse-file-upload-feature-using-html-css-javascript-5dii -->
+<html>
+    <head>
+        <link rel="stylesheet" href="/assets/style.css">
+        <link rel="stylesheet" href="/assets/index.css">
+    </head>
+    <body>
+        <div class="layout">
+            <!-- <div class="header"></div> -->
+            <div class="panel">
+                <div class="img-display">
+                    <div class="slide-container">
+                        <span id="slider-value">50</span>
+                        <input type="range" min="1" max="100" value="50" id="slider">
+                    </div>
+                    <div class="drag-area">
+                        <div class="icon"><i class="fas fa-cloud-upload-alt"></i></div>
+                        <header>Drag & Drop to Upload File</header>
+                        <span>OR</span>
+                        <button>Browse File</button>
+                        <input type="file" hidden>
+                    </div>
+                </div>
+                <div class="info">
+                    <span>File Size: <span id="file_size"><span></span>
+                </div>
+            </div>
+        </div>
+        <script src="/assets/index.js">
+        </script>
+    </body>
+</html>
