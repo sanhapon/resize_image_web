@@ -4,6 +4,16 @@ version = "0.1.0"
 edition = "2021"
 
 [dependencies]
-tokio = { version = "1", features = ["full"] }
-tokio-stream = "0.1.6"
-warp = "0.3"
+#tokio = { version = "1", features = ["full"] }
+#tokio-stream = "0.1.6"
+#warp = "0.3"
+
+turbojpeg = { version = "0.2.1"}
+#turbojpeg = "0.1.0"
+#spng = "0.1.0"
+#png = "0.17.2"
+
+[dependencies.image]
+version = "0.24.0"
+#features = ["jpeg", "png", "bmp", "farbfeld", "pnm", "rgb"]
+
