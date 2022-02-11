@@ -5,6 +5,15 @@
         <link rel="stylesheet" href="/assets/index.css">
     </head>
     <body>
+        <script src="/assets/jpgsquash.js"></script>
+        <script>
+            var wasm_loaded = false;
+
+            Module.onRuntimeInitialized = function() {
+              wasm_loaded = true;
+            }
+        </script>
+
         <div class="layout">
             <!-- <div class="header"></div> -->
             <div class="panel">
@@ -25,6 +34,7 @@
                     <span>File Size: <span id="file_size"><span></span>
                 </div>
             </div>
+            <div id="result"></div>
         </div>
         <script src="/assets/index.js">
         </script>
