@@ -8,6 +8,7 @@
         <script src="/assets/jpgsquash.js"></script>
         <script>
             var wasm_loaded = false;
+            var global_fileAsArray;
 
             Module.onRuntimeInitialized = function() {
               wasm_loaded = true;
@@ -20,7 +21,7 @@
                 <div class="img-display">
                     <div class="slide-container">
                         <span id="slider-value">50</span>
-                        <input type="range" min="1" max="100" value="50" id="slider">
+                        <input type="range" min="1" max="100" value="95" id="slider">
                     </div>
                     <div class="drag-area">
                         <div class="icon"><i class="fas fa-cloud-upload-alt"></i></div>
@@ -32,11 +33,12 @@
                 </div>
                 <div class="info">
                     <span>File Size: <span id="file_size"><span></span>
+                    <a href="" id="download_link">click here to download your file</a>
                 </div>
             </div>
             <div id="result"></div>
         </div>
-        <script src="/assets/index.js">
-        </script>
+        <script src="/assets/index.js"></script>
+
     </body>
 </html>
