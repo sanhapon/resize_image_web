@@ -46,16 +46,33 @@
 }
 
 .slide-container #slider-img-info {
-  /* display: inline-block; */
   display: none;
+  margin-top: 10px;
+}
+
+.slide-container #file_size {
+  margin-left: 20px;
 }
 
 .slide-container #download_link {
-  float: right;
-  color: white;
+  background-color: #04AA6D;
+  color: #ffffff;
+  border-color: #04AA6D;
+  display: inline-block;
+  padding: 6px 18px;
+  vertical-align: middle;
+  overflow: hidden;
+  text-decoration: none;
+  text-align: center;
+  cursor: pointer;
+  user-select: none;
+  border: 1px solid #cccccc;
+  border-radius: 5px;
 }
 
-/* .slide-container #slider-value {} */
+.slide-container #download_link:hover {
+  background-color: #059862!important;
+}
 
 .drag-area{
   border: 1px dashed #fff;
@@ -90,6 +107,7 @@
   color: #fff;
   margin: 10px 0 15px 0;
 }
+
 .drag-area button{
   padding: 10px 25px;
   font-size: 20px;
@@ -100,6 +118,10 @@
   color: #5256ad;
   border-radius: 5px;
   cursor: pointer;
+}
+
+.drag-area button:hover{
+  background: #fff0E0;
 }
 .drag-area img{
   height: 100%;

@@ -2,10 +2,13 @@ const   dropArea = document.querySelector(".drag-area"),
         dragText = dropArea.querySelector("header"),
         button = dropArea.querySelector("button"),
         input = dropArea.querySelector("input"),
+        imageResult = document.querySelector('.image-result'),
         slider = document.getElementById("slider"),
+        sliderImageInfo = document.getElementById("slider-img-info"),
         sliderValue = document.getElementById("slider-value"),
-        download_link = document.getElementById("download_link"),
-        image_result = document.querySelector('.image-result');
+        downloadLink = document.getElementById("download_link"),
+        fileSize = document.getElementById("file_size");
+
 
 let file;
 
@@ -36,9 +39,12 @@ dropArea.addEventListener("drop", (event)=>{
   showFile();
 });
 
+slider.oninput = function() {
+  sliderValue.textContent = `Quality: ${this.value}`;
+  compress(global_fileAsArray, this.value);
+}
+
 //************************** */
-
-
 function compress(imgAsArray, gQuality) {
   if (wasm_loaded == false) {
     return;
@@ -54,23 +60,19 @@ function compress(imgAsArray, gQuality) {
   var compressedUrl = URL.createObjectURL(blob);
 
   render_image(compressedUrl);
-
-  // sizekb.innerHTML = "" + (size / 1024.0).toFixed(2);
+  setFileSize(size);
+  setDownlaod(compressedUrl, file.name, gQuality);
   Module._free(buf);
-
-  /*** set download link ***/
-  download_link.href = compressedUrl;
-  download_link.download = `${(Math.random() + 1).toString(36).substring(7)}.jpeg`;
 }
 
 function render_image(url) {
   var image = new Image();
   image.onload = function() {
-    image_result.style.width = "850px";
-    image_result.style.height = "500px";
-    image_result.style.backgroundImage='url(\"'+image.src+'\")';
-    image_result.style.backgroundSize= 'cover';
-    image_result.style.backgroundAttachment= 'scroll';
+    imageResult.style.width = "850px";
+    imageResult.style.height = "500px";
+    imageResult.style.backgroundImage='url(\"'+image.src+'\")';
+    imageResult.style.backgroundSize= 'cover';
+    imageResult.style.backgroundAttachment= 'scroll';
     dropArea.style.display = 'none';
     download_link.style.display = 'inline';
   };
@@ -91,6 +93,9 @@ function showFile(){
         var blob = new Blob([global_fileAsArray], {type: "image/jpeg"});
         var url = URL.createObjectURL(blob);
         render_image(url);
+        setDownlaod(url, file.name, 'origin');
+        setFileSize(file.size);
+        sliderImageInfo.style.display = "inline-block";
       };
     })(file);
 
@@ -101,8 +106,11 @@ function showFile(){
   }
 }
 
-slider.oninput = function() {
-  sliderValue.textContent = `Quality: ${this.value}`;
-  // setTimeout(function() {}, 1000);
-  compress(global_fileAsArray, this.value);
+function setDownlaod(url, filename, quality) {
+  downloadLink.href = url;
+  downloadLink.download = `${filename}-${quality}.jpeg`;
+}
+
+function setFileSize(size){
+  fileSize.innerHTML = `(${(size / 1024.0).toFixed(2)} Kb.)`;
 }
