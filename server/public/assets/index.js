@@ -2,7 +2,7 @@ const   dropArea = document.querySelector(".drag-area"),
         dragText = dropArea.querySelector("header"),
         button = dropArea.querySelector("button"),
         input = dropArea.querySelector("input"),
-        imageResult = document.querySelector('.image-result'),
+        imageResult = document.getElementById('image-result'),
         slider = document.getElementById("slider"),
         sliderImageInfo = document.getElementById("slider-img-info"),
         sliderValue = document.getElementById("slider-value"),
@@ -68,13 +68,11 @@ function compress(imgAsArray, gQuality) {
 function render_image(url) {
   var image = new Image();
   image.onload = function() {
-    imageResult.style.width = "850px";
-    imageResult.style.height = "500px";
+    imageResult.style.display = "inline-block";
     imageResult.style.backgroundImage='url(\"'+image.src+'\")';
     imageResult.style.backgroundSize= 'cover';
-    imageResult.style.backgroundAttachment= 'scroll';
     dropArea.style.display = 'none';
-    download_link.style.display = 'inline';
+    // download_link.style.display = 'inline';
   };
 
   image.src = url;
@@ -95,7 +93,6 @@ function showFile(){
         render_image(url);
         setDownlaod(url, file.name, 'origin');
         setFileSize(file.size);
-        sliderImageInfo.style.display = "inline-block";
       };
     })(file);
 
