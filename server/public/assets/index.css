@@ -10,13 +10,12 @@
 }
 
 .panel {
-  padding-top: 20;
+  padding: 5%;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
   background-color: #0078d7;
-  height: calc(100vh - 100px);
 }
 
 .img-display {
@@ -40,6 +39,7 @@
   flex-direction: column;
   width: 850px;
   height: 500px;
+  padding: 50px;
 }
 
 .drag-area.active{
@@ -57,7 +57,6 @@
   font-size: 30px;
   font-weight: 500;
   color: #fff;
-  margin-top: 50px;
   padding-bottom: 50px;
 }
 
