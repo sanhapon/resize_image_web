@@ -7,10 +7,38 @@ const   dropArea = document.querySelector(".drag-area"),
         sliderImageInfo = document.getElementById("slider-img-info"),
         sliderValue = document.getElementById("slider-value"),
         downloadLink = document.getElementById("download_link"),
-        fileSize = document.getElementById("file_size");
+        fileSize = document.getElementById("file_size"),
+        button_container = document.querySelector(".button_container"),
+        plus_minus_container = document.querySelector(".plus_minus_container"),
+        new_picture = document.getElementById("new_picture"),
+        button_plus = document.getElementById("button_plus"),
+        button_minus = document.getElementById("button_minus");
 
 
 let file;
+quality_value = 0;
+
+new_picture.onclick = () => {
+  location.reload();
+}
+
+slider.oninput = function() {
+  compress(global_fileAsArray, this.value, false);
+}
+
+button_plus.onclick = () => {
+  if (quality_value < 100) {
+    quality_value += 5;
+    compress(global_fileAsArray, quality_value, false);
+  }
+}
+
+button_minus.onclick = () => {
+  if (quality_value > 5) {
+    quality_value -= 5;
+    compress(global_fileAsArray, quality_value, false);
+  }
+}
 
 button.onclick = ()=>{
   input.click();
@@ -39,16 +67,13 @@ dropArea.addEventListener("drop", (event)=>{
   showFile();
 });
 
-slider.oninput = function() {
-  sliderValue.textContent = `Quality: ${this.value}`;
-  compress(global_fileAsArray, this.value);
-}
-
 //************************** */
-function compress(imgAsArray, gQuality) {
+function compress(imgAsArray, gQuality, onImageLoad) {
   if (wasm_loaded == false) {
     return;
   }
+
+  sliderValue.textContent = `Quality:${gQuality}`;
 
   var len = imgAsArray.byteLength;
   var buf = Module._malloc(len);
@@ -59,7 +84,10 @@ function compress(imgAsArray, gQuality) {
   var blob = new Blob([result], {type: "image/jpeg"});
   var compressedUrl = URL.createObjectURL(blob);
 
-  render_image(compressedUrl);
+  if (onImageLoad === false) {
+    render_image(compressedUrl);
+  }
+
   setFileSize(size);
   setDownlaod(compressedUrl, file.name, gQuality);
   Module._free(buf);
@@ -72,7 +100,12 @@ function render_image(url) {
     imageResult.style.backgroundImage='url(\"'+image.src+'\")';
     imageResult.style.backgroundSize= 'cover';
     dropArea.style.display = 'none';
-    // download_link.style.display = 'inline';
+
+    button_container.style.display = "block";
+
+    quality_value = 80;
+    slider.value = quality_value;
+    compress(global_fileAsArray, quality_value, true);
   };
 
   image.src = url;
